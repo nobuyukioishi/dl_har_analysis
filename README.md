@@ -4,7 +4,7 @@ This is the submodule repository of the [dl_har_public repository](https://githu
 
 ## Contributing to this repository
 
-If you want to contribute to this repository **make sure to fork and clone the main repository [dl_har_public repository](https://github.com/STRCSussex-UbiCompSiegen/dl_har_public) with all its submodules**. Please run:
+If you want to contribute to this repository **make sure to fork and clone the main repository [dl_har_public repository](https://github.com/STRCSussex-UbiCompSiegen/dl_har_public) with all its submodules**. To do so please run:
 
 ```
 git clone --recurse-submodules -j8 git@github.com:STRCSussex-UbiCompSiegen/dl_har_public.git
