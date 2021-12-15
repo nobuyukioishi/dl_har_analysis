@@ -124,7 +124,7 @@ def run_train_analysis(train_results):
                   .format(avg_sbj_v_loss[-1], avg_sbj_v_acc[-1], avg_sbj_v_fm[-1], avg_sbj_v_fw[-1]))
 
 
-def run_test_analysis(test_results):
+def run_test_analysis(test_results, save_results):
     """
     Runs an average analysis of saved test results.
 
