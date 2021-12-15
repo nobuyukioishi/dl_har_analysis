@@ -19,7 +19,7 @@ def get_args():
     parser = argparse.ArgumentParser(description='Train and evaluate an HAR model on given dataset.')
 
     parser.add_argument(
-        '-d', '--directory', type=str, help='Log directory for rerun of analysis (e.g. 20211205/225715). Required.',
+        '-d', '--directory', type=str, help='Log directory for rerun of analysis (e.g. 20211205/225715). Required',
         required=True)
 
     args = parser.parse_args()
