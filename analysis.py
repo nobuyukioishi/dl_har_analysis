@@ -77,7 +77,7 @@ def run_train_analysis(train_results):
           .format(avg_v_loss[-1], avg_v_acc[-1], avg_v_fm[-1], avg_v_fw[-1]))
 
     # subject-wise analysis
-    print(paint("SUBJECT-WISE RESULTS"))
+    print(paint("\nSUBJECT-WISE RESULTS"))
     for sbj in np.unique(train_results['sbj']):
         if sbj == -1:
             print(paint("NONE"))
@@ -124,7 +124,7 @@ def run_train_analysis(train_results):
                   .format(avg_sbj_v_loss[-1], avg_sbj_v_acc[-1], avg_sbj_v_fm[-1], avg_sbj_v_fw[-1]))
 
 
-def run_test_analysis(test_results, save_results):
+def run_test_analysis(test_results):
     """
     Runs an average analysis of saved test results.
 

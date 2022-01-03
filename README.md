@@ -1,6 +1,6 @@
 # DL-HAR - Analysis Submodule
 
-This is the submodule repository of the [dl_har_public repository](https://github.com/STRCSussex-UbiCompSiegen/dl_har_public).
+This is the analysis submodule repository of the [dl_har_public repository](https://github.com/STRCSussex-UbiCompSiegen/dl_har_public).
 
 ## Contributing to this repository
 
