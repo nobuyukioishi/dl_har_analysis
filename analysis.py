@@ -133,6 +133,7 @@ def run_test_analysis(test_results):
     """
     if test_results is not None:
         avg_t_loss, avg_t_acc, avg_t_fm, avg_t_fw = .0, .0, .0, .0
+        t_loss_list, t_acc_list, t_fm_list, t_fw_list = [], [], [], []
         # average analysis
         for i, row in test_results.iterrows():
             if i == 0:
@@ -140,11 +141,27 @@ def run_test_analysis(test_results):
                 avg_t_acc = np.asarray(row['test_acc'])
                 avg_t_fm = np.asarray(row['test_fm'])
                 avg_t_fw = np.asarray(row['test_fw'])
+
+                t_loss_list.append(row['test_loss'])
+                t_acc_list.append(row['test_acc'])
+                t_fm_list.append(row['test_fm'])
+                t_fw_list.append(row['test_fw'])
             else:
                 avg_t_loss = np.add(avg_t_loss, row['test_loss'])
                 avg_t_acc = np.add(avg_t_acc, row['test_acc'])
                 avg_t_fm = np.add(avg_t_fm, row['test_fm'])
                 avg_t_fw = np.add(avg_t_fw, row['test_fw'])
+
+                t_loss_list.append(row['test_loss'])
+                t_acc_list.append(row['test_acc'])
+                t_fm_list.append(row['test_fm'])
+                t_fw_list.append(row['test_fw'])
+
+        if len(t_loss_list) > 0:
+            print(f"Loss: {np.mean(t_loss_list):.4f}\u00B1{np.std(t_loss_list)}:.4f", end="")
+            print(f"- Accuracy: {np.mean(t_acc_list):.4f}\u00B1{np.std(t_acc_list):.4f}", end="")
+            print(f"- F1-score (macro): {np.mean(t_fm_list):.4f}\u00B1{np.std(t_fm_list):.4f}", end="")
+            print(f"- F1-score: {np.mean(t_fw_list):.4f}\u00B1{np.std(t_fw_list):.4f}", end="")
 
         avg_t_loss /= len(test_results)
         avg_t_acc /= len(test_results)
@@ -154,7 +171,6 @@ def run_test_analysis(test_results):
         print('\nAverage Test results:')
         print('Loss: {:.4f} - Accuracy: {:.4f} - F1-score (macro): {:.4f} - F1-score (weighted): {:.4f}'
               .format(avg_t_loss, avg_t_acc, avg_t_fm, avg_t_fw))
-
 
 def rerun_analysis(log_directory):
     """
