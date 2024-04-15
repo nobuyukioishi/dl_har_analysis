@@ -16,11 +16,17 @@ from utils import paint
 
 
 def get_args():
-    parser = argparse.ArgumentParser(description='Train and evaluate an HAR model on given dataset.')
+    parser = argparse.ArgumentParser(
+        description="Train and evaluate an HAR model on given dataset."
+    )
 
     parser.add_argument(
-        '-d', '--directory', type=str, help='Log directory for rerun of analysis (e.g. 20211205/225715). Required.',
-        required=True)
+        "-d",
+        "--directory",
+        type=str,
+        help="Log directory for rerun of analysis (e.g. 20211205/225715). Required.",
+        required=True,
+    )
 
     args = parser.parse_args()
 
@@ -42,23 +48,23 @@ def run_train_analysis(train_results):
     print(paint("AVERAGE RESULTS"))
     for i, row in train_results.iterrows():
         if i == 0:
-            avg_t_loss = np.asarray(row['t_loss'])
-            avg_t_acc = np.asarray(row['t_acc'])
-            avg_t_fm = np.asarray(row['t_fm'])
-            avg_t_fw = np.asarray(row['t_fw'])
-            avg_v_loss = np.asarray(row['v_loss'])
-            avg_v_acc = np.asarray(row['v_acc'])
-            avg_v_fm = np.asarray(row['v_fm'])
-            avg_v_fw = np.asarray(row['v_fw'])
+            avg_t_loss = np.asarray(row["t_loss"])
+            avg_t_acc = np.asarray(row["t_acc"])
+            avg_t_fm = np.asarray(row["t_fm"])
+            avg_t_fw = np.asarray(row["t_fw"])
+            avg_v_loss = np.asarray(row["v_loss"])
+            avg_v_acc = np.asarray(row["v_acc"])
+            avg_v_fm = np.asarray(row["v_fm"])
+            avg_v_fw = np.asarray(row["v_fw"])
         else:
-            avg_t_loss = np.add(avg_t_loss, row['t_loss'])
-            avg_t_acc = np.add(avg_t_acc, row['t_acc'])
-            avg_t_fm = np.add(avg_t_fm, row['t_fm'])
-            avg_t_fw = np.add(avg_t_fw, row['t_fw'])
-            avg_v_loss = np.add(avg_v_loss, row['v_loss'])
-            avg_v_acc = np.add(avg_v_acc, row['v_acc'])
-            avg_v_fm = np.add(avg_v_fm, row['v_fm'])
-            avg_v_fw = np.add(avg_v_fw, row['v_fw'])
+            avg_t_loss = np.add(avg_t_loss, row["t_loss"])
+            avg_t_acc = np.add(avg_t_acc, row["t_acc"])
+            avg_t_fm = np.add(avg_t_fm, row["t_fm"])
+            avg_t_fw = np.add(avg_t_fw, row["t_fw"])
+            avg_v_loss = np.add(avg_v_loss, row["v_loss"])
+            avg_v_acc = np.add(avg_v_acc, row["v_acc"])
+            avg_v_fm = np.add(avg_v_fm, row["v_fm"])
+            avg_v_fw = np.add(avg_v_fw, row["v_fw"])
 
     avg_t_loss /= len(train_results)
     avg_t_acc /= len(train_results)
@@ -69,16 +75,22 @@ def run_train_analysis(train_results):
     avg_v_fm /= len(train_results)
     avg_v_fw /= len(train_results)
 
-    print('\nAverage Train results (last epoch):')
-    print('Loss: {:.4f} - Accuracy: {:.4f} - F1-score (macro): {:.4f} - F1-score (weighted): {:.4f}'
-          .format(avg_t_loss[-1], avg_t_acc[-1], avg_t_fm[-1], avg_t_fw[-1]))
-    print('\nAverage Validation results (last epoch):')
-    print('Loss: {:.4f} - Accuracy: {:.4f} - F1-score (macro): {:.4f} - F1-score (weighted): {:.4f}'
-          .format(avg_v_loss[-1], avg_v_acc[-1], avg_v_fm[-1], avg_v_fw[-1]))
+    print("\nAverage Train results (last epoch):")
+    print(
+        "Loss: {:.4f} - Accuracy: {:.4f} - F1-score (macro): {:.4f} - F1-score (weighted): {:.4f}".format(
+            avg_t_loss[-1], avg_t_acc[-1], avg_t_fm[-1], avg_t_fw[-1]
+        )
+    )
+    print("\nAverage Validation results (last epoch):")
+    print(
+        "Loss: {:.4f} - Accuracy: {:.4f} - F1-score (macro): {:.4f} - F1-score (weighted): {:.4f}".format(
+            avg_v_loss[-1], avg_v_acc[-1], avg_v_fm[-1], avg_v_fw[-1]
+        )
+    )
 
     # subject-wise analysis
     print(paint("\nSUBJECT-WISE RESULTS"))
-    for sbj in np.unique(train_results['sbj']):
+    for sbj in np.unique(train_results["sbj"]):
         if sbj == -1:
             print(paint("NONE"))
             continue
@@ -89,23 +101,23 @@ def run_train_analysis(train_results):
             # average analysis
             for i, (_, row) in enumerate(sbj_data.iterrows()):
                 if i == 0:
-                    avg_sbj_t_loss = np.asarray(row['t_loss'])
-                    avg_sbj_t_acc = np.asarray(row['t_acc'])
-                    avg_sbj_t_fm = np.asarray(row['t_fm'])
-                    avg_sbj_t_fw = np.asarray(row['t_fw'])
-                    avg_sbj_v_loss = np.asarray(row['v_loss'])
-                    avg_sbj_v_acc = np.asarray(row['v_acc'])
-                    avg_sbj_v_fm = np.asarray(row['v_fm'])
-                    avg_sbj_v_fw = np.asarray(row['v_fw'])
+                    avg_sbj_t_loss = np.asarray(row["t_loss"])
+                    avg_sbj_t_acc = np.asarray(row["t_acc"])
+                    avg_sbj_t_fm = np.asarray(row["t_fm"])
+                    avg_sbj_t_fw = np.asarray(row["t_fw"])
+                    avg_sbj_v_loss = np.asarray(row["v_loss"])
+                    avg_sbj_v_acc = np.asarray(row["v_acc"])
+                    avg_sbj_v_fm = np.asarray(row["v_fm"])
+                    avg_sbj_v_fw = np.asarray(row["v_fw"])
                 else:
-                    avg_sbj_t_loss = np.add(avg_sbj_t_loss, row['t_loss'])
-                    avg_sbj_t_acc = np.add(avg_sbj_t_acc, row['t_acc'])
-                    avg_sbj_t_fm = np.add(avg_sbj_t_fm, row['t_fm'])
-                    avg_sbj_t_fw = np.add(avg_sbj_t_fw, row['t_fw'])
-                    avg_sbj_v_loss = np.add(avg_sbj_v_loss, row['v_loss'])
-                    avg_sbj_v_acc = np.add(avg_sbj_v_acc, row['v_acc'])
-                    avg_sbj_v_fm = np.add(avg_sbj_v_fm, row['v_fm'])
-                    avg_sbj_v_fw = np.add(avg_sbj_v_fw, row['v_fw'])
+                    avg_sbj_t_loss = np.add(avg_sbj_t_loss, row["t_loss"])
+                    avg_sbj_t_acc = np.add(avg_sbj_t_acc, row["t_acc"])
+                    avg_sbj_t_fm = np.add(avg_sbj_t_fm, row["t_fm"])
+                    avg_sbj_t_fw = np.add(avg_sbj_t_fw, row["t_fw"])
+                    avg_sbj_v_loss = np.add(avg_sbj_v_loss, row["v_loss"])
+                    avg_sbj_v_acc = np.add(avg_sbj_v_acc, row["v_acc"])
+                    avg_sbj_v_fm = np.add(avg_sbj_v_fm, row["v_fm"])
+                    avg_sbj_v_fw = np.add(avg_sbj_v_fw, row["v_fw"])
 
             avg_sbj_t_loss /= len(sbj_data)
             avg_sbj_t_acc /= len(sbj_data)
@@ -116,12 +128,24 @@ def run_train_analysis(train_results):
             avg_sbj_v_fm /= len(sbj_data)
             avg_sbj_v_fw /= len(sbj_data)
 
-            print('\nAverage Train results (last epoch): Subject {}'.format(sbj))
-            print('Loss: {:.4f} - Accuracy: {:.4f} - F1-score (macro): {:.4f} - F1-score (weighted): {:.4f}'
-                  .format(avg_sbj_t_loss[-1], avg_sbj_t_acc[-1], avg_sbj_t_fm[-1], avg_sbj_t_fw[-1]))
-            print('\nAverage Validation results (last epoch): Subject {}'.format(sbj))
-            print('Loss: {:.4f} - Accuracy: {:.4f} - F1-score (macro): {:.4f} - F1-score (weighted): {:.4f}'
-                  .format(avg_sbj_v_loss[-1], avg_sbj_v_acc[-1], avg_sbj_v_fm[-1], avg_sbj_v_fw[-1]))
+            print("\nAverage Train results (last epoch): Subject {}".format(sbj))
+            print(
+                "Loss: {:.4f} - Accuracy: {:.4f} - F1-score (macro): {:.4f} - F1-score (weighted): {:.4f}".format(
+                    avg_sbj_t_loss[-1],
+                    avg_sbj_t_acc[-1],
+                    avg_sbj_t_fm[-1],
+                    avg_sbj_t_fw[-1],
+                )
+            )
+            print("\nAverage Validation results (last epoch): Subject {}".format(sbj))
+            print(
+                "Loss: {:.4f} - Accuracy: {:.4f} - F1-score (macro): {:.4f} - F1-score (weighted): {:.4f}".format(
+                    avg_sbj_v_loss[-1],
+                    avg_sbj_v_acc[-1],
+                    avg_sbj_v_fm[-1],
+                    avg_sbj_v_fw[-1],
+                )
+            )
 
 
 def run_test_analysis(test_results):
@@ -132,45 +156,61 @@ def run_test_analysis(test_results):
     :return: None
     """
     if test_results is not None:
-        avg_t_loss, avg_t_acc, avg_t_fm, avg_t_fw = .0, .0, .0, .0
+        avg_t_loss, avg_t_acc, avg_t_fm, avg_t_fw = 0.0, 0.0, 0.0, 0.0
         t_loss_list, t_acc_list, t_fm_list, t_fw_list = [], [], [], []
         # average analysis
         for i, row in test_results.iterrows():
             if i == 0:
-                avg_t_loss = np.asarray(row['test_loss'])
-                avg_t_acc = np.asarray(row['test_acc'])
-                avg_t_fm = np.asarray(row['test_fm'])
-                avg_t_fw = np.asarray(row['test_fw'])
+                avg_t_loss = np.asarray(row["test_loss"])
+                avg_t_acc = np.asarray(row["test_acc"])
+                avg_t_fm = np.asarray(row["test_fm"])
+                avg_t_fw = np.asarray(row["test_fw"])
 
-                t_loss_list.append(row['test_loss'])
-                t_acc_list.append(row['test_acc'])
-                t_fm_list.append(row['test_fm'])
-                t_fw_list.append(row['test_fw'])
+                t_loss_list.append(row["test_loss"])
+                t_acc_list.append(row["test_acc"])
+                t_fm_list.append(row["test_fm"])
+                t_fw_list.append(row["test_fw"])
             else:
-                avg_t_loss = np.add(avg_t_loss, row['test_loss'])
-                avg_t_acc = np.add(avg_t_acc, row['test_acc'])
-                avg_t_fm = np.add(avg_t_fm, row['test_fm'])
-                avg_t_fw = np.add(avg_t_fw, row['test_fw'])
+                avg_t_loss = np.add(avg_t_loss, row["test_loss"])
+                avg_t_acc = np.add(avg_t_acc, row["test_acc"])
+                avg_t_fm = np.add(avg_t_fm, row["test_fm"])
+                avg_t_fw = np.add(avg_t_fw, row["test_fw"])
 
-                t_loss_list.append(row['test_loss'])
-                t_acc_list.append(row['test_acc'])
-                t_fm_list.append(row['test_fm'])
-                t_fw_list.append(row['test_fw'])
+                t_loss_list.append(row["test_loss"])
+                t_acc_list.append(row["test_acc"])
+                t_fm_list.append(row["test_fm"])
+                t_fw_list.append(row["test_fw"])
 
         if len(t_loss_list) > 0:
-            print(f"Loss: {np.mean(t_loss_list):.4f}\u00B1{np.std(t_loss_list)}:.4f", end="")
-            print(f"- Accuracy: {np.mean(t_acc_list):.4f}\u00B1{np.std(t_acc_list):.4f}", end="")
-            print(f"- F1-score (macro): {np.mean(t_fm_list):.4f}\u00B1{np.std(t_fm_list):.4f}", end="")
-            print(f"- F1-score: {np.mean(t_fw_list):.4f}\u00B1{np.std(t_fw_list):.4f}", end="")
+            print(
+                f"Loss: {np.mean(t_loss_list):.4f}\u00B1{np.std(t_loss_list):.4f}",
+                end="",
+            )
+            print(
+                f"- Accuracy: {np.mean(t_acc_list):.4f}\u00B1{np.std(t_acc_list):.4f}",
+                end="",
+            )
+            print(
+                f"- F1-score (macro): {np.mean(t_fm_list):.4f}\u00B1{np.std(t_fm_list):.4f}",
+                end="",
+            )
+            print(
+                f"- F1-score: {np.mean(t_fw_list):.4f}\u00B1{np.std(t_fw_list):.4f}",
+                end="",
+            )
 
         avg_t_loss /= len(test_results)
         avg_t_acc /= len(test_results)
         avg_t_fm /= len(test_results)
         avg_t_fw /= len(test_results)
 
-        print('\nAverage Test results:')
-        print('Loss: {:.4f} - Accuracy: {:.4f} - F1-score (macro): {:.4f} - F1-score (weighted): {:.4f}'
-              .format(avg_t_loss, avg_t_acc, avg_t_fm, avg_t_fw))
+        print("\nAverage Test results:")
+        print(
+            "Loss: {:.4f} - Accuracy: {:.4f} - F1-score (macro): {:.4f} - F1-score (weighted): {:.4f}".format(
+                avg_t_loss, avg_t_acc, avg_t_fm, avg_t_fw
+            )
+        )
+
 
 def rerun_analysis(log_directory):
     """
@@ -179,16 +219,24 @@ def rerun_analysis(log_directory):
     :param log_directory: directory where results were saved to (e.g. 20211205/225740)
     :return: None
     """
-    train_results_df = pd.read_csv(os.path.join('../logs', log_directory, 'train_results.csv'), index_col=None)
-    train_results_df[['t_loss', 't_acc', 't_fm', 't_fw', 'v_loss', 'v_acc', 'v_fm', 'v_fw']] = \
-        train_results_df[['t_loss', 't_acc', 't_fm', 't_fw', 'v_loss', 'v_acc', 'v_fm', 'v_fw']] \
-            .apply(lambda x: list(map(json.loads, x)))
+    train_results_df = pd.read_csv(
+        os.path.join("../logs", log_directory, "train_results.csv"), index_col=None
+    )
+    train_results_df[
+        ["t_loss", "t_acc", "t_fm", "t_fw", "v_loss", "v_acc", "v_fm", "v_fw"]
+    ] = train_results_df[
+        ["t_loss", "t_acc", "t_fm", "t_fw", "v_loss", "v_acc", "v_fm", "v_fw"]
+    ].apply(
+        lambda x: list(map(json.loads, x))
+    )
     run_train_analysis(train_results_df)
-    if os.path.isfile(os.path.join('../logs', log_directory, 'test_results.csv')):
-        test_results_df = pd.read_csv(os.path.join('../logs', log_directory, 'test_results.csv'), index_col=None)
+    if os.path.isfile(os.path.join("../logs", log_directory, "test_results.csv")):
+        test_results_df = pd.read_csv(
+            os.path.join("../logs", log_directory, "test_results.csv"), index_col=None
+        )
         run_test_analysis(test_results_df)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     args = get_args()
     rerun_analysis(args.directory)
